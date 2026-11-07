@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>3D scroll story</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap">
+  <link rel="stylesheet" href="story.css">
+  <script type="importmap">{"imports": {"three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+</head>
+<body>
+<main>
+  <section class="story" data-story aria-labelledby="story-word">
+    <div class="story__stage">
+      <div class="story__glow"></div>
+      <h1 class="story__word" id="story-word">ScriptCam</h1>
+      <canvas class="story__gl" aria-hidden="true"></canvas>
+      <img class="story__fallback" src="screens/editor.webp" width="1005" height="2185" alt="ScriptCam's script editor on an iPhone">
+      <p class="story__hud" aria-hidden="true">Step <b data-hud>0</b> of 3</p>
+    </div>
+
+    <div class="story__hero">
+      <div class="wrap">
+        <p class="kicker">Teleprompter and camera for iPhone</p>
+        <p class="lede">Paste your script, hit record and just talk. The next line waits right under the camera.</p>
+        <a class="btn" href="#">Download on the App Store</a>
+      </div>
+    </div>
+
+    <div class="story__steps">
+      <article class="story__step" data-step>
+        <div class="story__step-in">
+          <p class="kicker">Step 1 of 3 · Write</p>
+          <h2>Paste the script.</h2>
+          <p class="sub">Each step is a tall block of copy. As its top reaches 60% of the screen, the story's progress passes a whole number and the phone flies to that step's pose.</p>
+        </div>
+      </article>
+      <article class="story__step" data-step>
+        <div class="story__step-in">
+          <p class="kicker">Step 2 of 3 · Record</p>
+          <h2>Just talk.</h2>
+          <p class="sub">The screen swaps at the step's arrival and dims for a beat, like an app changing view. Between steps the pose holds still while you read.</p>
+        </div>
+      </article>
+      <article class="story__step" data-step>
+        <div class="story__step-in">
+          <p class="kicker">Step 3 of 3 · Review</p>
+          <h2>Keep the take.</h2>
+          <p class="sub">After the last step the phone turns away and the stage lets go, because the sticky stage only pins for its own section.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="after">
+    <div class="wrap"><h2>And the page carries on.</h2></div>
+  </section>
+</main>
+<script type="module" src="story.js"></script>
+</body>
+</html>

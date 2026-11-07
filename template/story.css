@@ -1,0 +1,55 @@
+/* The scroll story's scaffolding. The stage is sticky for the whole section, so it stays pinned
+   while the steps scroll over it, and lets go when the section ends. The hero copy is pulled up
+   over the stage with a negative margin, so the first screen is the word, the phone and the hero. */
+:root {
+  --bg: #0e0e11; --bone: #efebe3; --bone-2: #c9c4ba; --ash: #8a877f;
+  --accent: #ffd60a;                       /* the app's colour: glow, kicker, buttons */
+  --gutter: clamp(20px, 5vw, 72px);
+  --ease: cubic-bezier(.2, .7, .2, 1);
+}
+* { box-sizing: border-box; }
+html { background: var(--bg); color: var(--bone); }
+body { margin: 0; font: 400 18px/1.5 "Archivo", system-ui, -apple-system, sans-serif; overflow-x: clip; }
+.wrap { padding: 0 var(--gutter); }
+.kicker { font: 650 12px/1 system-ui, sans-serif; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 0; }
+h2 { font-stretch: 125%; font-weight: 900; text-transform: uppercase; line-height: .9; letter-spacing: -.01em; margin: 0; }
+.btn { display: inline-block; margin-top: 26px; padding: 14px 22px; background: var(--bone); color: #111; text-decoration: none;
+  font: 650 13px/1 system-ui, sans-serif; letter-spacing: .1em; text-transform: uppercase; border-radius: 2px; }
+
+.story { position: relative; }
+.story__stage { position: sticky; top: 0; z-index: 0; height: 100vh; height: 100svh; overflow: hidden; pointer-events: none; }
+.story__glow { position: absolute; inset: 0;
+  background: radial-gradient(34% 46% at 66% 54%, color-mix(in srgb, var(--accent) 15%, transparent), transparent 72%); }
+/* the giant word: --out (0 to 1) is set from the first step's position, so it slides up and fades */
+.story__word { position: absolute; left: 0; right: 0; top: 44%; margin: 0; text-align: center; white-space: nowrap;
+  font-stretch: 125%; font-weight: 900; font-size: 19vw; line-height: .8; letter-spacing: -.02em; text-transform: uppercase;
+  opacity: calc(1 - var(--out, 0)); transform: translateY(calc(-50% - var(--out, 0) * 8vh)); }
+.story__gl { position: absolute; inset: 0; display: block; width: 100%; height: 100%; opacity: 0; transition: opacity 1.2s var(--ease); }
+.story.is-ready .story__gl { opacity: 1; }
+.story__fallback { display: none; position: absolute; top: 16vh; right: 8vw; height: 70vh; width: auto; border-radius: 22px; }
+.story.no-gl .story__fallback { display: block; }
+.story__hud { position: absolute; right: var(--gutter); bottom: clamp(32px, 7vh, 80px); margin: 0; font: 600 12px/1.4 system-ui, sans-serif;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--ash); }
+.story__hud b { color: var(--bone); }
+.story__hero { position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: flex-end;
+  min-height: 100vh; min-height: 100svh; margin-top: -100vh; margin-top: -100svh; padding-bottom: clamp(40px, 9vh, 110px); pointer-events: none; }
+.story__hero .wrap > * { pointer-events: auto; max-width: 30ch; }
+.lede { font-size: clamp(18px, 1.6vw, 24px); margin: 18px 0 0; color: var(--bone-2); }
+.story__steps { position: relative; z-index: 1; pointer-events: none; }
+.story__step { display: flex; align-items: center; min-height: 118vh; min-height: 118svh; padding: 0 var(--gutter); }
+.story__step-in { max-width: 480px; pointer-events: auto; }
+.story__step h2 { font-size: clamp(44px, 6.4vw, 110px); margin-top: 18px; }
+.sub { max-width: 44ch; margin: 18px 0 0; color: var(--bone-2); }
+
+.after { min-height: 70vh; display: flex; align-items: center; border-top: 1px solid #222; }
+.after h2 { font-size: clamp(36px, 5vw, 80px); }
+
+@media (max-width: 860px) {
+  .story__word { top: 30%; font-size: 21vw; }
+  .story__glow { background: radial-gradient(60% 34% at 50% 34%, color-mix(in srgb, var(--accent) 15%, transparent), transparent 72%); }
+  .story__hud { display: none; }
+  /* on phones the copy parks low and scrolls up under the phone, on a scrim so it stays readable */
+  .story__step { align-items: flex-end; padding-bottom: 12vh; }
+  .story__step-in { background: linear-gradient(transparent, var(--bg) 22%); padding-top: 40px; }
+}
+@media (prefers-reduced-motion: reduce) { .story__gl { transition: none; } }
